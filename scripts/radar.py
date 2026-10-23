@@ -226,7 +226,7 @@ def apply(args):
         issue_path = ROOT / 'data/weeks' / f'{manifest["date"]}.json'
         digest = hashlib.sha256(json.dumps(decision,sort_keys=True).encode()).hexdigest()
         existing_issue = read(issue_path, {})
-        if existing_issue and existing_issue.get('decision_hash') != digest:
+        if existing_issue and existing_issue.get('decision_hash') != digest and not getattr(args,'amend',False):
             raise ValueError('An issue already exists for this date; use a new issue date instead of silently overwriting it')
         if args.dry_run:
             print(json.dumps({'validated':True,'papers':len(records),'featured':sum(p['status']=='featured' for p in records)},ensure_ascii=False));return
@@ -240,10 +240,13 @@ def apply(args):
                 p['versions'] = old.get('versions',[]) + [{'version':old['version'],'url':old['url']}]
             existing[p['id']] = {**old,**p}
         write(ROOT / 'data/papers.json',list(existing.values()))
+        history = existing_issue.get('amendments', [])
+        if existing_issue and existing_issue.get('decision_hash') != digest:
+            history = history + [{'previous_decision_hash': existing_issue.get('decision_hash'), 'revised_on':today()}]
         write(issue_path,{'date':manifest['date'],'since':manifest['since'],'until':manifest['until'],
                          'editorial_zh':decision['editorial_zh'],'paper_ids':[p['id'] for p in records],
                          'snapshots':records,'sources':manifest['sources'],'candidate_count':manifest['candidate_count'],
-                         'decision_hash':digest})
+                         'decision_hash':digest,'amendments':history})
         build_site()
         commit = None
         if args.publish:
@@ -255,7 +258,7 @@ def main():
     parser=argparse.ArgumentParser()
     sub=parser.add_subparsers(dest='command',required=True)
     c=sub.add_parser('collect');c.add_argument('--since');c.add_argument('--date',default=today());c.set_defaults(fn=collect)
-    a=sub.add_parser('apply');a.add_argument('--candidates',required=True);a.add_argument('--decisions',required=True);a.add_argument('--dry-run',action='store_true');a.add_argument('--publish',action='store_true');a.set_defaults(fn=apply)
+    a=sub.add_parser('apply');a.add_argument('--candidates',required=True);a.add_argument('--decisions',required=True);a.add_argument('--dry-run',action='store_true');a.add_argument('--publish',action='store_true');a.add_argument('--amend',action='store_true',help='Explicitly revise an existing issue and retain its prior decision hash');a.set_defaults(fn=apply)
     b=sub.add_parser('build');b.set_defaults(fn=lambda a:build_site())
     p=sub.add_parser('publish');p.set_defaults(fn=lambda a:print(json.dumps({'commit':publish_repo()})))
     args=parser.parse_args();args.fn(args)

@@ -2,14 +2,14 @@ const $ = s => document.querySelector(s);
 const state = {category:'all', scope:'all', query:'', sort:'reading', stage:null, data:null};
 const esc = v => String(v ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const url = v => {try {const u=new URL(v); return u.protocol==='https:'?esc(u.href):'#';}catch{return '#';}};
-const levels = {abstract:'摘要已核对',metadata:'出版元数据已核对',fulltext:'全文已核对',reproduced:'已实际复现'};
+const levels = {abstract:'摘要已核对',metadata:'出版元数据已核对',fulltext:'正文已核对',reproduced:'已实际复现'};
 const scores = {question:'问题变化',decision:'实验或决策',information:'信息条件',evaluation:'评价方法',evidence:'证据强度',nontriviality:'超出常规组合'};
 function visible(){
   if(!state.data) return [];
   const latest = state.data.issues[0];
   const fresh = new Set(latest?.paper_ids || []);
   const q=state.query.trim().toLowerCase();
-  return state.data.papers.filter(p => (state.category==='all'||p.category===state.category) && (!state.stage||p.reading_stage===state.stage) && (state.scope==='all'||(state.scope==='essential'?p.essential:fresh.has(p.id))) && (!q||[p.title,p.method,p.authors,p.venue,p.summary_zh,p.why_read,p.limitation].join(' ').toLowerCase().includes(q))).sort((a,b)=>state.sort==='year'?(b.year-a.year||a.title.localeCompare(b.title)):state.sort==='added'?String(b.added_on).localeCompare(String(a.added_on))||b.year-a.year:(a.reading_stage||6)-(b.reading_stage||6)||Number(b.essential)-Number(a.essential)||b.year-a.year);
+  return state.data.papers.filter(p => (state.category==='all'||p.category===state.category) && (!state.stage||p.reading_stage===state.stage) && (state.scope==='all'||(state.scope==='essential'?p.essential:fresh.has(p.id))) && (!q||[p.title,p.method,p.authors,p.venue,p.doi,p.arxiv_id,p.pmcid,p.summary_zh,p.why_read,p.limitation].join(' ').toLowerCase().includes(q))).sort((a,b)=>state.sort==='year'?(b.year-a.year||a.title.localeCompare(b.title)):state.sort==='added'?String(b.added_on).localeCompare(String(a.added_on))||b.year-a.year:(a.reading_stage||6)-(b.reading_stage||6)||Number(b.essential)-Number(a.essential)||b.year-a.year);
 }
 function renderLibrary(){
   const list=visible();
