@@ -3,6 +3,7 @@
 import json
 from pathlib import Path
 from radar import CATEGORIES, ROOT
+from readme import render_english
 
 PATHWAYS = [
     {'step': 1, 'title': '理解约束与通量', 'description': '从 FBA 的守恒条件、反应边界和目标函数开始，再用 COBRApy 动手。', 'methods': ['FBA','COBRApy','COBRA Toolbox 3.0']},
@@ -20,7 +21,7 @@ def build():
                'categories':CATEGORIES,'pathways':PATHWAYS,'papers':papers,'issues':issues,
                'schedule':{'weekday':'周日','time':'09:00','timezone':'Asia/Shanghai'}}
     (ROOT/'docs/data.json').write_text(json.dumps(payload,ensure_ascii=False,separators=(',',':'))+'\n')
-    lines = ['# Awesome AIVM Papers','',
+    lines = ['# Awesome AIVM Papers','', '[English](README.md) | **简体中文**','',
              '面向人工智能与虚拟代谢研究的论文、教程和学习入口。持续完善，欢迎通过 Issue 或 Pull Request 补充资料。','',
              '**[浏览学术看板](https://zhang-lecheng.github.io/awesome-aivm-papers/)** · [阅读方法](METHODOLOGY.md) · [贡献文献](CONTRIBUTING.md)','',
              f'已收录 **{len(papers)} 篇**文献。入门库长期维护；近期论文每周日 09:00（Asia/Shanghai）由 DeepSeek Harness 更新，模型为 `westlake/deepseek-flash`。','',
@@ -42,10 +43,11 @@ def build():
                       f'  {p["summary_zh"]}',f'  - 为什么读：{p["why_read"]}',f'  - 阅读时注意：{p["limitation"]}','']
     lines += ['## 历期周报','']+[f'- [{i["date"]}](weekly/{i["date"]}.md)' for i in issues]
     lines += ['', '## 数据与维护','',
-              '- `data/papers.json`：文献库及中文导读。','- `data/weeks/`：每期候选、检索来源和编辑选择的快照。',
+              '- `data/papers.json`：文献库及中英文导读。','- `data/weeks/`：每期候选、检索来源和编辑选择的快照。',
               '- `scripts/radar.py`：采集、校验、重建与推送。','- `prompts/weekly.zh-CN.md`：DeepSeek Harness 每周任务指令。','',
               '参考文献的标题、期刊和日期优先核对 DOI 注册信息与 Europe PMC。每篇记录核查日期及证据层级。欢迎提交更正。','']
-    (ROOT/'README.md').write_text('\n'.join(lines))
+    (ROOT/'README.zh-CN.md').write_text('\n'.join(lines))
+    (ROOT/'README.md').write_text(render_english(papers,issues))
     (ROOT/'weekly').mkdir(exist_ok=True)
     for issue in issues:
         text=[f'# AIVM 每周文献更新｜{issue["date"]}','',f'检索窗口：{issue["since"]} 至 {issue["until"]}。候选 {issue["candidate_count"]} 篇。','',issue['editorial_zh'],'']

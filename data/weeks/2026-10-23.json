@@ -204,5 +204,6 @@
       "previous_decision_hash": "ae5c4bea8864c624a3df82834d4e301f134cd64f2afeef4dfacd960a0ef99978",
       "revised_on": "2026-10-23"
     }
-  ]
+  ],
+  "editorial_en": "This issue highlights GPU-based metabolic optimization and a virtual-cell framework for fungal biomanufacturing. Semi-supervised enzyme kinetic prediction and the integration of deuterium metabolic imaging with metabolic models are also worth following; both remain on the watchlist because only their abstracts were checked. For a first reading, start with FBA, GECKO, and DLKcat, then assess what the newer approaches add."
 }

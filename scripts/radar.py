@@ -158,6 +158,8 @@ def validate(decision, manifest):
         raise ValueError('Decision date must match collection date')
     if not isinstance(decision.get('editorial_zh'), str) or len(decision['editorial_zh']) < 15:
         raise ValueError('A concrete Chinese weekly editorial is required')
+    if not isinstance(decision.get('editorial_en'), str) or len(decision['editorial_en']) < 20:
+        raise ValueError('An English weekly editorial is required for the default README')
     candidates = {p['id']: p for p in manifest['candidates']}
     papers = decision.get('papers')
     if not isinstance(papers, list) or len(papers) > 12:
@@ -176,6 +178,9 @@ def validate(decision, manifest):
         for key in ('summary_zh', 'why_read', 'limitation', 'new_question'):
             if not isinstance(p.get(key),str) or len(p[key]) < 12:
                 raise ValueError('Missing substantive Chinese field: ' + key)
+        for key in ('summary_en', 'why_read_en', 'limitation_en'):
+            if not isinstance(p.get(key),str) or len(p[key]) < 20:
+                raise ValueError('Missing substantive English field: ' + key)
         scores = p.get('scores', {})
         if set(scores) != set(LIMITS) or any(type(scores[k]) is not int or not 0 <= scores[k] <= v for k,v in LIMITS.items()):
             raise ValueError('Invalid six-part score')
@@ -187,6 +192,9 @@ def validate(decision, manifest):
         # Bibliographic metadata always comes from retrieval, never from the language model.
         record = {k:v for k,v in original.items() if k not in ('abstract','existing_record','metadata_url')}
         record.update({k:p[k] for k in ('category','status','summary_zh','why_read','limitation','new_question','scores','innovation_score','evidence_level','evidence_urls')})
+        record.update({k:p[k] for k in ('summary_en','why_read_en','limitation_en')})
+        if p.get('method_en'):
+            record['method_en'] = p['method_en']
         record['verified_on'] = manifest['date']
         clean.append(record)
     return sorted(clean, key=lambda p:-p['innovation_score'])
@@ -209,7 +217,7 @@ def publish_repo():
     if not env.get('GITHUB_TOKEN'):
         raise RuntimeError('GitHub credential not configured')
     env.update(GIT_TERMINAL_PROMPT='0', GIT_ASKPASS=str(ROOT / 'scripts/git-askpass.sh'))
-    git('add', 'README.md', 'docs', 'data', 'weekly', 'scripts', 'prompts', 'CONTRIBUTING.md', 'METHODOLOGY.md', '.gitignore', 'tests')
+    git('add', 'README.md', 'README.zh-CN.md', 'docs', 'data', 'weekly', 'scripts', 'prompts', 'CONTRIBUTING.md', 'METHODOLOGY.md', '.gitignore', 'tests')
     changed = subprocess.run(['git','diff','--cached','--quiet'],cwd=ROOT).returncode
     if changed:
         git('commit','-m',f'weekly AIVM library: {today()}')
@@ -244,7 +252,7 @@ def apply(args):
         if existing_issue and existing_issue.get('decision_hash') != digest:
             history = history + [{'previous_decision_hash': existing_issue.get('decision_hash'), 'revised_on':today()}]
         write(issue_path,{'date':manifest['date'],'since':manifest['since'],'until':manifest['until'],
-                         'editorial_zh':decision['editorial_zh'],'paper_ids':[p['id'] for p in records],
+                         'editorial_zh':decision['editorial_zh'],'editorial_en':decision['editorial_en'],'paper_ids':[p['id'] for p in records],
                          'snapshots':records,'sources':manifest['sources'],'candidate_count':manifest['candidate_count'],
                          'decision_hash':digest,'amendments':history})
         build_site()

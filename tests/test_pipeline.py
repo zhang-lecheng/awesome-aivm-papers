@@ -19,7 +19,11 @@ class PipelineTests(unittest.TestCase):
         candidate={'id':'arxiv:2610.12345','arxiv_id':'2610.12345','version':'2610.12345v1','title':'A metabolic model','date':'2026-10-22','year':2026,'url':'https://arxiv.org/abs/2610.12345','venue':'arXiv','source':'arXiv','authors':'A. Researcher'}
         manifest={'date':'2026-10-23','since':'2026-10-09','until':'2026-10-23','sources':[{'source':'test','ok':True,'returned':1,'total_hits':1}],'candidates':[candidate],'candidate_count':1}
         p={'id':candidate['id'],'category':'hybrid','status':'watch','summary_zh':'论文把代谢网络与学习方法结合，并讨论预测代谢通量的验证方法。','why_read':'了解学习模型需要哪些输入与真实标签。','limitation':'目前只核对摘要，尚未核对全文的独立验证。','new_question':'从网络约束出发，哪些代谢响应可以预测？','scores':dict(question=20,decision=10,information=10,evaluation=10,evidence=5,nontriviality=3),'innovation_score':58,'evidence_level':'abstract','evidence_urls':[candidate['url']]}
-        decision={'date':manifest['date'],'editorial_zh':'本周候选讨论代谢模型的预测与验证，只有摘要的工作暂列观察区。','papers':[p]}
+        p.update(summary_en='The paper combines metabolic networks and learning to examine flux prediction and validation.',
+                 why_read_en='Understand the inputs and measured targets required for a learning model.',
+                 limitation_en='Only the abstract was checked; independent validation in the full text remains unverified.')
+        decision={'date':manifest['date'],'editorial_zh':'本周候选讨论代谢模型的预测与验证，只有摘要的工作暂列观察区。',
+                  'editorial_en':'This week covers metabolic prediction and validation; abstract-only work remains on the watchlist.','papers':[p]}
         return manifest,decision
 
     def test_canonical_arxiv_removes_version(self):
@@ -39,6 +43,14 @@ class PipelineTests(unittest.TestCase):
         m,d=self.sample();d['papers'][0]['id']='arxiv:0000.00000'
         with self.assertRaises(ValueError):radar.validate(d,m)
 
+    def test_english_annotations_required_for_weekly_entries(self):
+        for key in ('summary_en','why_read_en','limitation_en'):
+            m,d=self.sample();del d['papers'][0][key]
+            with self.subTest(field=key),self.assertRaises(ValueError):
+                radar.validate(d,m)
+        m,d=self.sample();del d['editorial_en']
+        with self.assertRaises(ValueError):radar.validate(d,m)
+
     def test_rerun_is_idempotent_and_failure_does_not_advance(self):
         m,d=self.sample()
         with tempfile.TemporaryDirectory() as tmp:
@@ -56,6 +68,12 @@ class PipelineTests(unittest.TestCase):
                 self.assertEqual(first,(root/'docs/data.json').read_bytes())
                 self.assertEqual(len(radar.read(root/'data/papers.json')),1)
                 self.assertEqual(radar.read(runtime/'state.json')['last_successful_run'],'2026-10-23')
+                english=(root/'README.md').read_text()
+                chinese=(root/'README.zh-CN.md').read_text()
+                self.assertIn('[简体中文](README.zh-CN.md)',english)
+                self.assertIn('[English](README.md)',chinese)
+                self.assertIn('The paper combines metabolic networks',english)
+                self.assertIn('论文把代谢网络与学习方法结合',chinese)
 
     def test_empty_week_keeps_existing_library(self):
         m,d=self.sample();d['papers']=[]

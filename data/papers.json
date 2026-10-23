@@ -23,7 +23,11 @@
     "verified_on": "2026-10-23",
     "added_on": "2026-10-23",
     "source": "Europe PMC",
-    "pmcid": "PMC12148494"
+    "pmcid": "PMC12148494",
+    "method_en": "AI Virtual Cell",
+    "summary_en": "This Perspective proposes multiscale, multimodal neural networks for representing and simulating molecules, cells, and tissues. It discusses the data, evaluation, and collaboration needed to build virtual cells, providing a useful starting point for understanding where metabolic modeling fits into the broader vision.",
+    "why_read_en": "Identify the scientific questions a virtual cell should support before deciding what its metabolic component should predict.",
+    "limitation_en": "The article sets out a research agenda; it does not present a completed system with all of the proposed capabilities."
   },
   {
     "id": "doi:10.1016/j.tibs.2026.01.003",
@@ -49,7 +53,11 @@
     "verified_on": "2026-10-23",
     "added_on": "2026-10-23",
     "source": "Europe PMC",
-    "pmcid": ""
+    "pmcid": "",
+    "method_en": "Metabolic pathway reconstruction framework",
+    "summary_en": "The article discusses combining retrosynthetic planning with biological constraints to reconstruct biologically feasible metabolic pathways. It connects pathway-level and systems-level modeling and considers how large language models might contribute to understanding, designing, evaluating, and optimizing metabolic networks.",
+    "why_read_en": "Understand AI for metabolism from both pathway design and systems constraints.",
+    "limitation_en": "This is a conceptual framework. The effectiveness of individual approaches depends on their corresponding modeling and experimental results."
   },
   {
     "id": "doi:10.1038/nbt.1614",
@@ -75,7 +83,11 @@
     "verified_on": "2026-10-23",
     "added_on": "2026-10-23",
     "source": "Europe PMC",
-    "pmcid": "PMC3108565"
+    "pmcid": "PMC3108565",
+    "method_en": "FBA",
+    "summary_en": "An introduction to flux balance analysis, covering stoichiometric matrices, steady-state mass balance, reaction bounds, and objective functions. It provides the theoretical starting point for genome-scale metabolic models, enzyme-constrained models, and later approaches that combine constraints with machine learning.",
+    "why_read_en": "Learn Sv = 0, feasible flux spaces, and objective functions before moving on to GEM research.",
+    "limitation_en": "FBA depends on steady-state assumptions, network boundaries, and the objective function. An optimal solution is not automatically the actual cellular flux state."
   },
   {
     "id": "doi:10.15252/msb.20167411",
@@ -101,7 +113,11 @@
     "verified_on": "2026-10-23",
     "added_on": "2026-10-23",
     "source": "Europe PMC",
-    "pmcid": "PMC5572397"
+    "pmcid": "PMC5572397",
+    "method_en": "GECKO",
+    "summary_en": "GECKO adds enzyme constraints to metabolic reactions, bounding flux by enzyme abundance multiplied by its turnover number. The yeast study examines carbon sources, stress, and pathway overexpression, and shows how quantitative proteomics can narrow the feasible flux space.",
+    "why_read_en": "Understand how a GEM becomes an enzyme-constrained GEM and what information protein abundance and kinetic parameters each contribute.",
+    "limitation_en": "The resulting flux ranges depend on how enzyme abundance, kinetic parameters, and enzyme capacities are specified."
   },
   {
     "id": "doi:10.1038/s44320-024-00060-7",
@@ -127,7 +143,11 @@
     "verified_on": "2026-10-23",
     "added_on": "2026-10-23",
     "source": "Europe PMC",
-    "pmcid": "PMC11450192"
+    "pmcid": "PMC11450192",
+    "method_en": "Yeast9",
+    "summary_en": "A community-maintained genome-scale metabolic model of Saccharomyces cerevisiae. The authors integrate single-cell transcriptomics, proteomics, and mutant expression data to study osmotic and nitrogen-source adaptation, and compare model-derived flux representations with expression representations for functional prediction.",
+    "why_read_en": "Learn how a working GEM is maintained, how omics data are integrated, and how genetic perturbation analyses are designed.",
+    "limitation_en": "Fluxes obtained by constraining a model with expression data are model inferences and should be checked against measured fluxes or independent phenotypes."
   },
   {
     "id": "doi:10.1038/s41929-022-00798-z",
@@ -153,7 +173,11 @@
     "verified_on": "2026-10-23",
     "added_on": "2026-10-23",
     "source": "Crossref",
-    "pmcid": ""
+    "pmcid": "",
+    "method_en": "DLKcat",
+    "summary_en": "DLKcat predicts enzyme turnover numbers, kcat, from protein sequences and substrate structures and uses those predictions to construct enzyme-constrained models. It connects enzyme-level supervised learning with systems-level phenotype prediction, showing how parameter prediction can affect downstream metabolic modeling.",
+    "why_read_en": "Trace how errors in sequence- and substrate-based parameter prediction propagate through a metabolic network.",
+    "limitation_en": "The in vitro kinetic training data are sparse and noisy. Predicted values should not be equated directly with actual intracellular turnover numbers."
   },
   {
     "id": "doi:10.1016/j.csbj.2023.10.002",
@@ -179,7 +203,11 @@
     "verified_on": "2026-10-23",
     "added_on": "2026-10-23",
     "source": "Europe PMC",
-    "pmcid": "PMC10590844"
+    "pmcid": "PMC10590844",
+    "method_en": "Supervised learning from omics to flux",
+    "summary_en": "The study trains supervised models on Escherichia coli transcriptomics, proteomics, and flux data and compares internal and external flux predictions with parsimonious FBA. It offers a direct entry point for comparing data-driven mappings with classical constraint-based optimization before considering their integration.",
+    "why_read_en": "Establish simple omics-to-flux baselines and identify the training labels and target conditions.",
+    "limitation_en": "Dataset size, condition splits, and available inputs determine extrapolation ability. ML2Flux has not been verified as the formal method name."
   },
   {
     "id": "doi:10.1038/s41467-023-40380-0",
@@ -205,7 +233,11 @@
     "verified_on": "2026-10-23",
     "added_on": "2026-10-23",
     "source": "Europe PMC",
-    "pmcid": "PMC10400647"
+    "pmcid": "PMC10400647",
+    "method_en": "Neural-mechanistic hybrid models",
+    "summary_en": "The authors combine neural networks with constraint-based metabolic models to predict microbial phenotypes, evaluating E. coli and Pseudomonas putida under different media and gene-knockout conditions. The approach learns to compensate for incomplete mechanistic inputs while retaining metabolic network constraints.",
+    "why_read_en": "Identify exactly which unknown quantity the neural network supplies and how mechanistic constraints enter training and prediction.",
+    "limitation_en": "Training phenotypes are still required. Generalization across species or beyond the studied culture conditions must be evaluated separately."
   },
   {
     "id": "doi:10.1101/gr.271205.120",
@@ -231,7 +263,11 @@
     "verified_on": "2026-10-23",
     "added_on": "2026-10-23",
     "source": "Europe PMC",
-    "pmcid": "PMC8494226"
+    "pmcid": "PMC8494226",
+    "method_en": "scFEA",
+    "summary_en": "scFEA represents a metabolic network as a factor graph and uses graph neural networks and flux-balance constraints to infer cell-wise metabolic flux from single-cell RNA data. The authors also generate matched metabolomics and RNA data to compare predicted changes with metabolite changes under oxygen and genetic perturbations.",
+    "why_read_en": "Follow the assumptions linking RNA to metabolic state and examine how cell-to-cell heterogeneity enters the model.",
+    "limitation_en": "Metabolite abundance changes used for validation differ from direct flux measurements. That distinction remains necessary when interpreting RNA-inferred flux."
   },
   {
     "id": "doi:10.1038/s41467-026-73744-3",
@@ -257,7 +293,11 @@
     "verified_on": "2026-10-23",
     "added_on": "2026-10-23",
     "source": "Europe PMC",
-    "pmcid": "PMC13478178"
+    "pmcid": "PMC13478178",
+    "method_en": "EnzymeTuning",
+    "summary_en": "EnzymeTuning uses a generative adversarial network to optimize kcat values globally within enzyme-constrained metabolic models and incorporates protein degradation constants to infer protein synthesis rates. The authors evaluate metabolic and proteome-abundance predictions across yeast species and E. coli and examine enzyme allocation under nutrient limitation.",
+    "why_read_en": "Compare predicting kcat independently with jointly optimizing parameters for a systems model.",
+    "limitation_en": "Optimized parameters serve model fitting. Whether they correspond to independently measured intracellular enzyme kinetics requires additional verification."
   },
   {
     "id": "doi:10.1186/1752-0509-7-74",
@@ -283,7 +323,11 @@
     "verified_on": "2026-10-23",
     "added_on": "2026-10-23",
     "source": "Europe PMC",
-    "pmcid": "PMC3751080"
+    "pmcid": "PMC3751080",
+    "method_en": "COBRApy",
+    "summary_en": "COBRApy provides Python interfaces for building, modifying, and analyzing constraint-based metabolic models. After learning FBA, readers can use it to turn stoichiometry, media definitions, and gene-reaction relationships into executable analyses such as growth prediction and gene deletion.",
+    "why_read_en": "Start with hands-on reproduction of simple growth predictions and single-gene deletions.",
+    "limitation_en": "The software provides analysis and solver access; biological correctness still depends on the network and its constraints."
   },
   {
     "id": "doi:10.1038/s41596-018-0098-2",
@@ -309,7 +353,11 @@
     "verified_on": "2026-10-23",
     "added_on": "2026-10-23",
     "source": "Europe PMC",
-    "pmcid": "PMC6635304"
+    "pmcid": "PMC6635304",
+    "method_en": "COBRA Toolbox 3.0",
+    "summary_en": "This protocol describes the construction and analysis of biochemical constraint-based models, including reconstruction, analysis, and applications. It complements introductory FBA material by expanding a mathematical optimization problem into a structured metabolic modeling workflow.",
+    "why_read_en": "Consult standard procedures, analytical methods, and reproducible workflows for constraint-based modeling.",
+    "limitation_en": "The protocol includes many methods. A study should select those appropriate to its data and objective rather than apply them all."
   },
   {
     "id": "doi:10.1038/s41587-020-0446-y",
@@ -335,7 +383,11 @@
     "verified_on": "2026-10-23",
     "added_on": "2026-10-23",
     "source": "Europe PMC",
-    "pmcid": "PMC7082222"
+    "pmcid": "PMC7082222",
+    "method_en": "MEMOTE",
+    "summary_en": "MEMOTE introduces standardized tests for genome-scale metabolic models, including annotation and stoichiometric consistency checks. It turns technical validation after reconstruction into a repeatable, comparable workflow and provides useful foundational checks for new or automatically reconstructed models.",
+    "why_read_en": "Check structural and consistency requirements before comparing predictive performance.",
+    "limitation_en": "Passing structural and annotation tests does not establish experimental validity for growth, perturbation, or flux predictions."
   },
   {
     "id": "doi:10.1126/scisignal.aaz1482",
@@ -361,7 +413,11 @@
     "verified_on": "2026-10-23",
     "added_on": "2026-10-23",
     "source": "Europe PMC",
-    "pmcid": "PMC7331181"
+    "pmcid": "PMC7331181",
+    "method_en": "Human1",
+    "summary_en": "Human1 integrates previous human metabolic reconstructions into a unified model for omics analysis and tissue- and disease-related metabolism research. Reading it alongside yeast models helps explain how human metabolic networks, gene annotations, and condition-specific analyses fit together.",
+    "why_read_en": "Use a maintained reference model when moving from microorganisms to human cells.",
+    "limitation_en": "A generic human network must be adapted to tissue, cell state, and culture conditions; it is not automatically a model of a particular cell."
   },
   {
     "id": "doi:10.1038/nbt.4072",
@@ -387,7 +443,11 @@
     "verified_on": "2026-10-23",
     "added_on": "2026-10-23",
     "source": "Europe PMC",
-    "pmcid": "PMC5840010"
+    "pmcid": "PMC5840010",
+    "method_en": "Recon3D",
+    "summary_en": "Recon3D links the human metabolic network with information including protein three-dimensional structures to analyze potential metabolic consequences of genetic variation. It illustrates a multiscale organization from genes and enzyme structures to systems-level phenotypes.",
+    "why_read_en": "Understand how human GEMs can connect protein structure and genetic variation.",
+    "limitation_en": "Mapping structural information onto a network does not determine the intracellular kinetic effect of every variant."
   },
   {
     "id": "doi:10.1093/nar/gky992",
@@ -413,7 +473,11 @@
     "verified_on": "2026-10-23",
     "added_on": "2026-10-23",
     "source": "Europe PMC",
-    "pmcid": "PMC6323901"
+    "pmcid": "PMC6323901",
+    "method_en": "Virtual Metabolic Human",
+    "summary_en": "The Virtual Metabolic Human database integrates human and gut microbial metabolism with nutrition and disease information. It indexes reactions and metabolites across host, microbes, and diet and is a useful reference for organizing metabolic research resources and checking identifiers.",
+    "why_read_en": "Look up metabolites, reactions, and biological context and explore the organization of host and microbial metabolism.",
+    "limitation_en": "Database associations and model entries need interpretation in the specific study context and do not replace condition-specific measurements."
   },
   {
     "id": "doi:10.1093/nar/gky537",
@@ -439,7 +503,11 @@
     "verified_on": "2026-10-23",
     "added_on": "2026-10-23",
     "source": "Europe PMC",
-    "pmcid": "PMC6125623"
+    "pmcid": "PMC6125623",
+    "method_en": "CarveMe",
+    "summary_en": "CarveMe automatically reconstructs genome-scale metabolic models for microbial species and communities from a universal model. It makes reconstruction a repeatable computational process and provides a platform for studying large-scale modeling, network gaps, and community metabolic exchange.",
+    "why_read_en": "Understand the roles of automated reconstruction and manual curation, and build microbial models for methodological experiments.",
+    "limitation_en": "Automated reconstruction and gap filling depend on prior knowledge and culture conditions. Key reactions and predicted phenotypes still require review."
   },
   {
     "id": "doi:10.1038/s41467-023-44113-1",
@@ -465,7 +533,11 @@
     "verified_on": "2026-10-23",
     "added_on": "2026-10-23",
     "source": "Europe PMC",
-    "pmcid": "PMC10713628"
+    "pmcid": "PMC10713628",
+    "method_en": "UniKP",
+    "summary_en": "UniKP uses protein and substrate representations to predict multiple enzyme kinetic parameters. It can be read alongside DLKcat to compare data curation, sequence and chemical representations, prediction tasks, and applications to enzyme engineering and systems modeling.",
+    "why_read_en": "Compare the learning problems for kcat, Km, and related parameters and establish simple, inspectable baselines.",
+    "limitation_en": "How similar sequences and identical substrates are assigned to training and test sets strongly affects the interpretation of generalization."
   },
   {
     "id": "doi:10.1016/j.cell.2021.05.045",
@@ -491,7 +563,11 @@
     "verified_on": "2026-10-23",
     "added_on": "2026-10-23",
     "source": "Europe PMC",
-    "pmcid": "PMC8621950"
+    "pmcid": "PMC8621950",
+    "method_en": "Compass",
+    "summary_en": "Compass combines single-cell RNA with metabolic network analysis to characterize Th17 metabolic states and propose polyamine-metabolism hypotheses related to pathogenic potential. Metabolic assays, chemical and genetic perturbations, and in vivo studies test the candidates, illustrating how computational analysis can guide experiments.",
+    "why_read_en": "Follow the concrete sequence from transcriptomic inference through pathway selection to functional experiments.",
+    "limitation_en": "Computational scores describe network-supported metabolic states and should not be treated as directly measured absolute fluxes in individual cells."
   },
   {
     "id": "doi:10.1038/s41467-023-40457-w",
@@ -517,7 +593,11 @@
     "verified_on": "2026-10-23",
     "added_on": "2026-10-23",
     "source": "Europe PMC",
-    "pmcid": "PMC10423258"
+    "pmcid": "PMC10423258",
+    "method_en": "METAFlux",
+    "summary_en": "METAFlux links gene expression with constraint-based modeling to characterize cancer metabolism from bulk and single-cell RNA data. Alongside scFEA and Compass, it provides an entry point for comparing network definitions, cellular differences, and downstream validation.",
+    "why_read_en": "Compare different RNA-to-metabolism inference methods on the same biological question.",
+    "limitation_en": "Mapping transcription to reaction activity involves assumptions. Agreement between methods alone does not establish the actual flux state."
   },
   {
     "id": "doi:10.1016/j.cels.2024.12.005",
@@ -543,7 +623,11 @@
     "verified_on": "2026-10-23",
     "added_on": "2026-10-23",
     "source": "Europe PMC",
-    "pmcid": "PMC11738665"
+    "pmcid": "PMC11738665",
+    "method_en": "SCOOTI",
+    "summary_en": "SCOOTI combines omics, metabolic modeling, and machine learning to infer metabolic objectives and trade-offs in single cells. The authors analyze embryonic development, cell-cycle phases, and quiescence and validate inferences using evidence including essential genes from CRISPR screens.",
+    "why_read_en": "Move beyond a fixed biomass-maximization objective to ask which metabolic needs different cells prioritize.",
+    "limitation_en": "Inferred objectives depend on the model and candidate objective set. Independent functional measurements remain important for their biological interpretation."
   },
   {
     "arxiv_id": "2610.24106",
@@ -583,7 +667,11 @@
     "verified_on": "2026-10-23",
     "added_on": "2026-10-23",
     "updated_on": "2026-10-23",
-    "essential": false
+    "essential": false,
+    "method_en": "gpuGEM",
+    "summary_en": "The open-source gpuGEM library formulates FBA and coupled constraints as linear programs for the NVIDIA cuOpt PDLP solver, using size-dependent precision, tolerances, and presolve settings. Across ten models with 95 to 1.18 million variables, the authors compare objective values, primal feasibility, and bound satisfaction with HiGHS and Gurobi and report 1.1- to 94-fold speedups. In eight models the objective reaction is fixed by its bounds, so agreement there is only a consistency check. A candidate-gene prioritization workflow falls from 41 to 21 seconds.",
+    "why_read_en": "Gene-deletion scans, flux variability analysis, personalized models, and cohort studies require repeated solves. The study examines solver choice, feasibility, and numerical stability and offers an open implementation relevant to GPU-based GEM workflows.",
+    "limitation_en": "The accessible HTML conversion is truncated in Results, so some acceleration, residual-tolerance, and iteration details were verified only at abstract level. Speedups come from a single RTX A4500 workstation. Biological consequences of feasibility decisions across models with different degeneracy were not evaluated; practical gains require reproduction."
   },
   {
     "arxiv_id": "2610.15175",
@@ -621,7 +709,11 @@
     "verified_on": "2026-10-23",
     "added_on": "2026-10-23",
     "updated_on": "2026-10-23",
-    "essential": false
+    "essential": false,
+    "method_en": "Deuterium imaging and GEM integration",
+    "summary_en": "This preprint proposes an uncertainty-aware workflow that integrates dynamic deuterium metabolic imaging into GEMs through soft flux constraints. Dynamic spectra follow labeled glucose administration in three muscle types in control and high-fat-diet mice, with a hierarchical four-state kinetic model for labeling. Because glucose labeling is more reliable than lactate and glutamate/glutamine signals, only two anchors are used: glucose handling mapped to hexokinase flux, and glucose-derived oxidative entry mapped to pyruvate dehydrogenase flux. This description is based on the abstract.",
+    "why_read_en": "Consider how noisy in vivo tracer signals can constrain GEMs through intervals rather than point estimates, and how unreliable signals are excluded. This helps distinguish feasible flux ranges from directly measured fluxes when interpreting flux variability analysis.",
+    "limitation_en": "Only the abstract was checked. The robustness of the inferred intervals, resampling strategy, and independent tracer validation remain unverified. The magnitude and reliability of subsystem and high-fat-diet effects therefore remain uncertain."
   },
   {
     "doi": "10.64898/2026.10.15.759462",
@@ -660,7 +752,11 @@
     "verified_on": "2026-10-23",
     "added_on": "2026-10-23",
     "updated_on": "2026-10-23",
-    "essential": false
+    "essential": false,
+    "method_en": "Semi-supervised kcat prediction",
+    "summary_en": "This preprint proposes regularized semi-supervised kcat prediction using enzyme-substrate pairs that lack kcat but have other kinetic records. Rather than assign pseudo-labels, it trains with labeled and unlabeled examples together. On CataPro data clustered at 40% sequence identity, neural consistency and graph Laplacian regularization reportedly benefit from unlabeled records; gains require sufficient labeled data and saturate after several thousand unlabeled records. This description is based on the abstract.",
+    "why_read_en": "Explore incomplete kinetic records as additional information for sparse kcat prediction and consider the role of feature-space density, rather than only proximity, when constructing training sets and benchmarks.",
+    "limitation_en": "Only the abstract was checked. Detailed splits, explicit sequence-cluster or enzyme-family holdouts, and gains on independent external datasets remain unverified. There is no verified downstream enzyme-constrained-model evaluation, so effects on flux prediction cannot yet be assessed."
   },
   {
     "doi": "",
@@ -699,6 +795,10 @@
     "verified_on": "2026-10-23",
     "added_on": "2026-10-23",
     "updated_on": "2026-10-23",
-    "essential": false
+    "essential": false,
+    "method_en": "AI-enabled fungal biomanufacturing",
+    "summary_en": "This review surveys AI for filamentous fungal biomanufacturing, spanning genome mining, enzymes and pathways, genome editing, metabolic modeling, and fermentation control. It presents omics, mechanistic models, and machine learning within a unified multiscale virtual-cell framework, emphasizing compartmentalized metabolism, secretion, and morphology-dependent production alongside data quality, cross-scale integration, interpretability, and experimental validation.",
+    "why_read_en": "Connect GEMs and machine learning to a concrete manufacturing context. The discussion of compartments and secretion helps assess whether a proposed virtual-cell framework addresses fungal biology beyond a collection of separate tasks.",
+    "limitation_en": "The review provides no new quantitative benchmark, error-propagation analysis, or validation experiments for the proposed cross-scale integration. Its discussion of fungal GEMs cites existing models and dynamic FBA examples, leaving the added benefit over current hybrid models unresolved."
   }
 ]

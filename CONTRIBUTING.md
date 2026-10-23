@@ -9,4 +9,6 @@
 
 新增论文可以通过 Issue 提议，也可以修改 `data/papers.json` 并提交 Pull Request。`README.md`、`docs/data.json` 和周报由 `python3 scripts/radar.py build` 生成，请修改源数据后重建。
 
+仓库默认主页 `README.md` 使用英文，中文版本为 `README.zh-CN.md`，顶部可互相切换。补充数据时请保留中文字段，并提供 `method_en`、`summary_en`、`why_read_en`、`limitation_en`，用于同步生成英文主页。每期导读对应 `editorial_zh` 与 `editorial_en`，翻译应保留原有事实、结论强度及证据限制。
+
 如发现错误，请说明具体字段和更正依据。我们尤其欢迎补充代谢通量的实测数据、跨条件验证，以及酶动力学数据和模型参数之间的区别。
