@@ -51,7 +51,11 @@ def identity(p):
     aid = re.sub(r'v\d+$', '', str(p.get('arxiv_id', '')).strip().split('/abs/')[-1])
     if aid:
         return 'arxiv:' + aid
-    raise ValueError('Every record needs a DOI or arXiv identifier')
+    if p.get('pmcid'):
+        return 'pmc:' + p['pmcid']
+    if p.get('pmid'):
+        return 'pmid:' + p['pmid']
+    raise ValueError('Every record needs a DOI, arXiv, PMC or PubMed identifier')
 
 def fetch_json(url):
     req = urllib.request.Request(url, headers={'User-Agent': 'Awesome-AIVM-Papers/1.0 (public literature index)'})
@@ -64,16 +68,20 @@ def epmc(query):
     payload = fetch_json(url)
     records = []
     for p in payload['resultList']['result']:
-        if not p.get('doi'):
+        if not (p.get('doi') or p.get('pmcid') or p.get('source') == 'MED'):
             continue
-        records.append({
-            'id': 'doi:' + p['doi'].lower(), 'doi': p['doi'].lower(), 'title': plain(p.get('title')),
-            'date': p.get('firstPublicationDate', ''), 'year': int(p.get('pubYear', 0)),
+        doi = p.get('doi','').lower()
+        date = p.get('firstPublicationDate', '')
+        record = {
+            'doi': doi, 'pmid': p['id'] if p.get('source')=='MED' else '', 'title': plain(p.get('title')),
+            'date': date, 'year': int(p.get('pubYear') or date[:4] or 0),
             'venue': p.get('journalInfo', {}).get('journal', {}).get('title', '') or ('预印本' if 'PPR' == p.get('source') else '未标注期刊'),
             'authors': plain(p.get('authorString')), 'abstract': plain(p.get('abstractText')),
-            'url': 'https://doi.org/' + p['doi'], 'pmcid': p.get('pmcid', ''),
+            'url': 'https://doi.org/' + doi if doi else 'https://europepmc.org/article/'+p['source']+'/'+p['id'], 'pmcid': p.get('pmcid', ''),
             'metadata_url': url, 'source': 'Europe PMC', 'kind': 'preprint' if p.get('source') == 'PPR' else 'article',
-        })
+        }
+        record['id'] = identity(record)
+        records.append(record)
     return records, int(payload.get('hitCount', len(records)))
 
 def arxiv(since, until):
