@@ -39,7 +39,8 @@ def render_english(papers, issues):
         lines += ['## '+name, '']
         group = [p for p in papers if p['category'] == key]
         for p in sorted(group, key=lambda p:(p.get('reading_stage',6),-p['year'])):
-            lines += [f'- **{p.get("method_en") or "New addition"}** — [{p["title"]}]({p["url"]}). {p["venue"]}, {p["year"]}.',
+            venue = {'预印本': 'Preprint', '未标注期刊': 'Venue not specified'}.get(p['venue'],p['venue'])
+            lines += [f'- **{p.get("method_en") or "New addition"}** — [{p["title"]}]({p["url"]}). {venue}, {p["year"]}.',
                       '  '+(p.get('summary_en') or 'English annotation pending; see the Chinese README for the current entry.'),
                       '  - Why read: '+(p.get('why_read_en') or 'See the Chinese entry.'),
                       '  - Reading note: '+(p.get('limitation_en') or 'See the Chinese entry for evidence limitations.'), '']
