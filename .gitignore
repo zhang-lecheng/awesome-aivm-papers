@@ -1,0 +1,7 @@
+.runtime/
+__pycache__/
+*.pyc
+.env
+data/*metadata.json
+node_modules/
+tests/screenshots/

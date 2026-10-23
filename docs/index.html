@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f5f3ee">
+  <meta name="description" content="AIVM 学习与研究入口：FBA、GEM、酶约束、AI 酶动力学、组学通量及单细胞代谢。每周日更新。">
+  <title>Awesome AIVM Papers · 虚拟代谢文献库</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a href="#library" class="skip">跳到文献库</a>
+  <header><a class="brand" href="./"><span class="brand-mark">A<span>m</span></span><span>AWESOME <b>AIVM</b><small>人工智能与虚拟代谢</small></span></a><nav aria-label="主导航"><a href="#pathway">阅读路线</a><a href="#weekly">每周更新</a><a href="https://github.com/zhang-lecheng/awesome-aivm-papers">GitHub ↗</a></nav></header>
+  <main>
+    <section class="hero">
+      <div><p class="overline">A LIVING READING LIST · EST. 2026</p><h1>虚拟代谢，<br>从这里开始读。</h1><p class="lead">连接代谢机制与人工智能的文献索引。<br>从通量平衡分析出发，走向可预测、可验证的细胞代谢。</p><div class="hero-links"><a class="primary" href="#library">浏览文献 <span>↓</span></a><a href="https://github.com/zhang-lecheng/awesome-aivm-papers/issues/new">推荐一篇论文 ↗</a></div></div>
+      <aside class="framework"><p class="overline">AIVM · RESEARCH LANDSCAPE</p><h2>把不同层次的信息接起来</h2><div class="framework-flow"><div><span>01</span><strong>序列与组学</strong><small>RNA · 蛋白 · 酶序列</small></div><i>↓</i><div><span>02</span><strong>反应与约束</strong><small>代谢网络 · 酶容量 · 动力学</small></div><i>↓</i><div><span>03</span><strong>预测与实验</strong><small>通量 · 生长 · 干预响应</small></div></div><p class="framework-note">阅读每个模型时，都问一次：输入是什么，输出如何验证？</p></aside>
+    </section>
+    <section class="stats" aria-label="文献库概况"><div><strong id="stat-total">—</strong><span>篇收录文献</span></div><div><strong id="stat-essential">—</strong><span>篇入门必读</span></div><div><strong id="stat-categories">7</strong><span>个研究主题</span></div><div class="update-stat"><span class="update-dot"></span><span>每周日 09:00 更新<small id="last-update">正在读取文献库</small></span></div></section>
+
+    <section class="pathway" id="pathway"><div class="section-title"><div><p class="overline">START WITH THE FOUNDATIONS</p><h2>一条建议的阅读路线</h2></div><p>从理论、网络和参数，走向模型与实验。</p></div><div class="path-steps" id="path-steps"></div></section>
+
+    <section class="weekly" id="weekly"><div class="section-title"><div><p class="overline">THE WEEKLY DIGEST</p><h2>近期值得读的变化</h2></div><label class="week-picker">周报日期 <select id="week-select" aria-label="选择周报"></select></label></div><div id="weekly-content"><p class="loading">正在读取本周更新…</p></div></section>
+
+    <section class="library-section" id="library"><div class="section-title"><div><p class="overline">THE RESEARCH LIBRARY</p><h2>论文与学习入口</h2></div><button id="export" class="export-button">导出 BibTeX ↗</button></div><div class="library-layout"><aside class="sidebar"><p class="sidebar-label">研究主题</p><div id="categories" role="group" aria-label="研究主题"></div><div class="sidebar-note"><strong>文献库持续完善</strong><p>欢迎补充论文、教程与数据。每篇尽量交代研究目标、数据来源与验证方式。</p><a href="https://github.com/zhang-lecheng/awesome-aivm-papers/blob/master/CONTRIBUTING.md">参与维护 ↗</a></div></aside><div class="library-main"><div class="search-row"><label class="search"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="搜索论文、方法、作者或关键词" aria-label="搜索文献"></label><select id="sort" aria-label="论文排序"><option value="reading">建议阅读顺序</option><option value="year">发表年份：新到旧</option><option value="added">最近收录</option></select></div><div class="filter-row"><div class="tabs" role="group" aria-label="文献范围"><button class="active" data-scope="all">全部文献</button><button data-scope="essential">入门必读</button><button data-scope="recent">近期新增</button></div><span id="result-count" aria-live="polite"></span></div><div id="active-stage" hidden></div><div id="paper-list" aria-live="polite"><p class="loading">正在加载…</p></div><p id="empty" hidden>没有找到符合条件的文献。<button id="reset">清除筛选</button></p></div></div></section>
+
+    <section class="methodology"><p class="overline">HOW TO READ THIS COLLECTION</p><div><h2>先分清数据，再判断模型。</h2><p>RNA 丰度、代谢物浓度、酶活性和通量是不同的读出。我们为文献保留“为什么读”和“阅读时注意”，同时标明证据来自摘要、全文还是实际复现。经典论文按学习顺序组织，周报另列近期论文的阅读优先级。</p><a href="https://github.com/zhang-lecheng/awesome-aivm-papers/blob/master/METHODOLOGY.md">阅读完整收录方法 ↗</a></div></section>
+  </main>
+  <footer><div><b>AWESOME AIVM PAPERS</b><span>一份持续维护的学习与研究索引</span></div><a href="https://github.com/zhang-lecheng/awesome-aivm-papers">开源数据与贡献 ↗</a></footer>
+  <script src="./app.js" defer></script>
+</body>
+</html>
