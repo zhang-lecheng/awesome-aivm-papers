@@ -6,7 +6,7 @@ A curated collection of papers, tutorials, and learning resources for AI and vir
 
 **[Explore the research dashboard](https://zhang-lecheng.github.io/awesome-aivm-papers/)** · [Selection methodology (Chinese)](METHODOLOGY.md) · [Contribution guide (Chinese)](CONTRIBUTING.md)
 
-The library currently contains **25 papers**. Foundational resources are maintained over time; recent literature is updated every **Sunday at 09:00, Asia/Shanghai**, by DeepSeek Harness using `westlake/deepseek-flash`.
+The library currently contains **29 papers**. Foundational resources are maintained over time; recent literature is updated every **Sunday at 09:00, Asia/Shanghai**, by DeepSeek Harness using `westlake/deepseek-flash`.
 
 Topics include metabolic network reconstruction, enzyme-constrained models, enzyme kinetic prediction, omics-to-flux inference, neural-mechanistic integration, and single-cell metabolism. AIVM is used here as an organizing theme; individual papers may use different terminology.
 
@@ -20,9 +20,9 @@ Topics include metabolic network reconstruction, enzyme-constrained models, enzy
 
 ## This week
 
-Latest issue: [2026-10-23](weekly/2026-10-23.md) (Chinese).
+Latest issue: [2026-11-01](weekly/2026-11-01.md) (Chinese).
 
-This issue highlights GPU-based metabolic optimization and a virtual-cell framework for fungal biomanufacturing. Semi-supervised enzyme kinetic prediction and the integration of deuterium metabolic imaging with metabolic models are also worth following; both remain on the watchlist because only their abstracts were checked. For a first reading, start with FBA, GECKO, and DLKcat, then assess what the newer approaches add.
+This issue covers 2026-10-20 to 2026-11-01: it overlaps three days before the last successful run on 2026-10-23 and also covers the 2026-10-26 update that stalled on an execution-environment failure. Retrieval returned 52 candidates. Two Europe PMC queries were truncated at the cap (38 and 51 hits, 30 taken each) and arXiv returned 0 hits in this window; no source reported an error. Most candidates are ordinary biology reviews on ageing, protein modification or pharmacology, and only about eight are directly relevant to AIVM. The standout contributions bring independent validation of a model to the foreground. A manually curated genome-scale model of Enterococcus faecium TX0016 reports confusion matrices against Biolog phenotype microarrays and amino-acid dropout experiments and honestly records a gene-essentiality MCC of only 0.27, which is far more useful than showcasing high accuracy. A single-cell metabolic modelling study of zebrafish vascular sprouting uses four audits to show that, under common settings, 19.5% of reactions can carry thermodynamically infeasible loop flux, enough to overturn a candidate target from a conventional screen. Two further papers were read only as abstracts because full text was unavailable: a nutrient-controlled reconstruction of LGG and a two-stage ESM-2 plus random-forest enzyme function predictor. No new paper this week provides independent isotope-tracing flux validation.
 
 ## Perspectives and reviews
 
@@ -90,6 +90,11 @@ This issue highlights GPU-based metabolic optimization and a virtual-cell framew
   - Why read: Understand the roles of automated reconstruction and manual curation, and build microbial models for methodological experiments.
   - Reading note: Automated reconstruction and gap filling depend on prior knowledge and culture conditions. Key reactions and predicted phenotypes still require review.
 
+- **Literature and defined-media driven manual reconstruction of an LGG GEM** — [Nutrient control enables metabolic reconstruction of <i>Lacticaseibacillus rhamnosus</i> GG and analysis of secretions.](https://doi.org/10.1128/msystems.01124-26). mSystems, 2026.
+  The authors present the first curated genome-scale model for the probiotic Lacticaseibacillus rhamnosus GG, reconstructed and validated by combining several automatically generated drafts, published studies and high-throughput defined-medium experiments. The results include a set of chemically defined media, extensive single-component nutrient dropout growth data, in silico plus in vitro comparisons of secretion products, lactate and indole-3-carboxaldehyde, and an in silico characterisation of LGG nutrient requirements. This entry rests on the abstract because the article is not open access and has no PMCID, so full text was not obtained.
+  - Why read: Nutrient requirement data are a direct source of usable constraints. Compared with draft models built on topology alone, this phenotype-closed reconstruction is the key evidence for judging whether a model can be trusted for medium design and gut-environment simulation.
+  - Reading note: Full text was not obtained, so replicate counts, the specific growth-call thresholds and the agreement between model predictions and in vitro results cannot be verified. Until those numbers are checked the model should not be cited as an experimentally validated simulation tool.
+
 ## Enzyme constraints and kinetic parameters
 
 - **EnzymeTuning** — [EnzymeTuning improves enzyme-constrained metabolic modeling and proteome abundance prediction through deep learning](https://doi.org/10.1038/s41467-026-73744-3). Nature communications, 2026.
@@ -116,6 +121,11 @@ This issue highlights GPU-based metabolic optimization and a virtual-cell framew
   This preprint proposes regularized semi-supervised kcat prediction using enzyme-substrate pairs that lack kcat but have other kinetic records. Rather than assign pseudo-labels, it trains with labeled and unlabeled examples together. On CataPro data clustered at 40% sequence identity, neural consistency and graph Laplacian regularization reportedly benefit from unlabeled records; gains require sufficient labeled data and saturate after several thousand unlabeled records. This description is based on the abstract.
   - Why read: Explore incomplete kinetic records as additional information for sparse kcat prediction and consider the role of feature-space density, rather than only proximity, when constructing training sets and benchmarks.
   - Reading note: Only the abstract was checked. Detailed splits, explicit sequence-cluster or enzyme-family holdouts, and gains on independent external datasets remain unverified. There is no verified downstream enzyme-constrained-model evaluation, so effects on flux prediction cannot yet be assessed.
+
+- **Two-stage ESM-2 embeddings plus random forest EC classification** — [A Two-Stage ESM-Based Machine Learning Pipeline for Robust Hierarchically Evaluated Enzyme Function Prediction.](https://doi.org/10.34133/csbj.0246). Computational and structural biotechnology journal, 2026.
+  ESM-ECForest is a two-stage pipeline that first converts proteins into fixed-length embeddings with the ESM-2 protein language model, then uses random forests trained on UniProtKB/Swiss-Prot 2026_01 to separate enzymes from non-enzymes and finally assign EC numbers hierarchically to predicted enzymes. On an external benchmark of 25,778 sequences, weighted F1 fell from 0.94 at EC level 1 to 0.90 at level 4. Ablations show that replacing the predicted gate with true enzyme status raises level-4 weighted F1 from 0.902 to 0.921, while removing the gate drops it to 0.863, indicating that gate errors, not EC assignment, dominate.
+  - Why read: Enzyme annotation is the upstream entry into GEM reaction and gene mapping, so misannotation becomes spurious network reactions. Splitting scores by EC level and attributing error to the gate rather than to EC assignment directly informs whether language-model annotation is worth wiring into reconstruction and at which level manual review is needed.
+  - Reading note: Training and validation used only UniProtKB/Swiss-Prot, so evaluation is confined to the taxonomic and EC-label space represented during training. Performance on unrepresented microbial genomes or metagenomes is not reported, and the downstream effect of annotation errors on a GEM is not quantified.
 
 ## Machine learning and mechanistic models
 
@@ -156,6 +166,11 @@ This issue highlights GPU-based metabolic optimization and a virtual-cell framew
   - Why read: Follow the concrete sequence from transcriptomic inference through pathway selection to functional experiments.
   - Reading note: Computational scores describe network-supported metabolic states and should not be treated as directly measured absolute fluxes in individual cells.
 
+- **scRNA-seq-informed ensemble GEM modelling with four audit safeguards** — [FluxSprout: Single-cell metabolic modeling of vascular sprouting in zebrafish](https://doi.org/10.64898/2026.10.24.761567). Preprint, 2026.
+  The preprint introduces FluxSprout, a framework that combines 10,090 quality-controlled single-cell transcriptomes with Zebrafish-GEM to reconstruct network ensembles for 14 endothelial and haemogenic states, guarded by four audits: stoichiometric, loop, cell-cycle-controlled testing and ensemble specificity screening. It reports four inorganic pyrophosphatase reactions misannotated as oxidative phosphorylation that create apparent pathway essentiality only when exchange fluxes are unbounded; 19.5% of reactions could carry thermodynamically infeasible loop flux, including every candidate of a conventional screen; and across 825 genes and four network-extraction settings, no candidate was called by more than one setting. These statements are based on the abstract only.
+  - Why read: It treats network annotation uncertainty, thermodynamic feasibility and ensemble specificity as evaluation targets on par with flux prediction, and quantifies how easily a conventional single-cell metabolic screen is driven by reconstruction artefacts. It is a directly reusable checklist for designing evaluation protocols for single-cell metabolic inference and for judging candidate robustness.
+  - Reading note: The authors state the data come from a single pooled clutch and require experimental validation. More importantly, only the abstract was read, so the exact implementation of the four audits, the definition of the cell-cycle control and how transcriptomes enter flux constraints were not verified, leaving open whether these discount factors hold for other tissues or models.
+
 ## Experimental data and model validation
 
 - **MEMOTE** — [MEMOTE for standardized genome-scale metabolic model testing](https://doi.org/10.1038/s41587-020-0446-y). Nature biotechnology, 2020.
@@ -163,8 +178,14 @@ This issue highlights GPU-based metabolic optimization and a virtual-cell framew
   - Why read: Check structural and consistency requirements before comparing predictive performance.
   - Reading note: Passing structural and annotation tests does not establish experimental validity for growth, perturbation, or flux predictions.
 
+- **Manually curated GEM with FBA, gap filling and Biolog / auxotrophy validation** — [An experimentally validated manually curated genome-scale metabolic model of Enterococcus faecium TX0016 reproduces high-throughput phenotyping data](https://europepmc.org/article/PMC/PMC13691439). Frontiers in microbiology, 2026.
+  The authors manually curated iDR478 for endocarditis isolate TX0016, ran FBA with COBRApy 0.25 and glpk, set reversibility bounds from BiGG and the E. faecalis template model, filled network gaps, and then validated phenotypes. Using a 0.078 per hour growth threshold, the model predicted growth on 40 of the 46 Biolog substrates scored as utilised, an accuracy of 86.9%, with six false negatives. Essentiality predictions for amino-acid dropout experiments agreed fully with the experiments, whereas gene essentiality reached only an MCC of 0.27 and sensitivity 0.39, which the authors attribute to transcriptional regulation and differing phenotype endpoints.
+  - Why read: It is a rare case that puts manual curation, high-throughput phenotype validation and an honest error breakdown in one paper. It supplies a comparable baseline for deciding whether a same-species model supports nutrient control, medium design and gene-essentiality screening, and shows concretely how different validation endpoints change conclusions.
+  - Reading note: Validation rests on a single strain and bulk phenotype microarrays without isotope tracing or measured fluxes. A gene-essentiality MCC of 0.27 implies that using this model directly for essential-gene or drug-target screening will produce many false positives and negatives, and the paper does not state the operating range that is acceptable at a given false-positive rate.
+
 ## Weekly archive
 
+- [2026-11-01](weekly/2026-11-01.md) (Chinese)
 - [2026-10-23](weekly/2026-10-23.md) (Chinese)
 
 ## Data and maintenance
